@@ -161,6 +161,47 @@ Located in [system-runtime/runtime_init/](./system-runtime/runtime_init/):
 - `browser_features_test.sh` - Browser features testing
 - `runtime_layout_test.sh` - Runtime layout testing
 
+### Core Implementation Source Code
+The actual Python source code that runs the system, located in [system-runtime/implementation/](./system-runtime/implementation/):
+
+**Main Server & API:**
+| File | What it does |
+|------|-------------|
+| [start_server.py](./system-runtime/implementation/start_server.py) | Uvicorn entrypoint and startup environment handling |
+| [python_server.py](./system-runtime/implementation/python_server.py) | **Main FastAPI app with all API endpoints** (file ops, browser, terminal, text editor) |
+| [router.py](./system-runtime/implementation/router.py) | Custom FastAPI route with request timing/logging |
+| [models.py](./system-runtime/implementation/models.py) | Data models (Pydantic) for API requests/responses |
+| [logger.py](./system-runtime/implementation/logger.py) | Logging configuration |
+| [trace_id_filter.py](./system-runtime/implementation/trace_id_filter.py) | Trace ID filtering middleware |
+
+**Browser & Computer Control:**
+| File | What it does |
+|------|-------------|
+| [computer_use.py](./system-runtime/implementation/computer_use.py) | **Browser-only, one-shot Python cell endpoint for computer_use_tool** |
+| [computer_use_cell.py](./system-runtime/implementation/computer_use_cell.py) | Computer use cell execution |
+| [computer_use_compat.py](./system-runtime/implementation/computer_use_compat.py) | Compatibility layer for computer use |
+
+**Code Interpreter:**
+| File | What it does |
+|------|-------------|
+| [code_interpreter.py](./system-runtime/implementation/code_interpreter.py) | **Jupyter/kernel endpoints** - code execution engine |
+
+**Runtime Services:**
+| File | What it does |
+|------|-------------|
+| [runtime_server.py](./system-runtime/implementation/runtime_server.py) | Sandbox runtime metadata endpoint |
+| [metrics_server.py](./system-runtime/implementation/metrics_server.py) | Metrics endpoint |
+
+**Tools & Helpers:**
+| File | What it does |
+|------|-------------|
+| [base.py](./system-runtime/implementation/base.py) | Base classes and common utility functions for tools |
+| [text_editor.py](./system-runtime/implementation/text_editor.py) | File editor operations: view, create, write, search |
+| [helpers/](./system-runtime/implementation/helpers/) | Signature, upload, utility helpers |
+| [tools/file/](./system-runtime/implementation/tools/file/) | File operation helpers |
+| [types/](./system-runtime/implementation/types/) | API schema definitions (Pydantic) |
+| [analyze/](./system-runtime/implementation/analyze/) | Timeout analysis modules |
+
 ---
 
 ## 📝 Note

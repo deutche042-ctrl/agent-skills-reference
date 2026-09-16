@@ -127,6 +127,42 @@ Complete reference of all installed Agent Skills — documentation, guides, temp
 
 ---
 
+## ⚙️ System Runtime & Execution Methods
+
+Additional system-level documentation about how the runtime environment works:
+
+| File | Description |
+|------|-------------|
+| [AGENTS.md](./system-runtime/AGENTS.md) | Python server module positioning, knowledge navigation, directory structure |
+| [SANDBOX-RUNTIME-API.md](./system-runtime/SANDBOX-RUNTIME-API.md) | Complete Sandbox Runtime API documentation (file ops, browser, terminal, text editor) |
+| [openapi.yaml](./system-runtime/openapi.yaml) | API reference snapshot (OpenAPI specification) |
+| [config.yaml](./system-runtime/config.yaml) | Server configuration (mode, timeouts, logging) |
+| [entrypoint.sh](./system-runtime/entrypoint.sh) | Main container entrypoint script |
+| [entrypoint_ci.sh](./system-runtime/entrypoint_ci.sh) | CI entrypoint script |
+| [requirements_ci.txt](./system-runtime/requirements_ci.txt) | Python dependency inventory |
+| [.npmrc](./system-runtime/.npmrc) | NPM configuration |
+
+### Runtime Initialization Scripts
+Located in [system-runtime/runtime_init/](./system-runtime/runtime_init/):
+- `load_session_skills.sh` - Session skills loading
+- `init_user_home.sh` - User home directory initialization
+- `init_http_proxy.sh` - HTTP proxy setup
+- `init_shell_http_proxy.sh` - Shell HTTP proxy initialization
+- `init_lark_cli.sh` - Lark CLI initialization
+- `adapt_intranet.sh` - Intranet adaptation
+- `apply_browser_proxy_server.sh` - Browser proxy server setup
+- `start_hijack_proxy.sh` - Hijack proxy startup
+- `persistent_sync.sh` - Persistent data synchronization
+- `ensure_data_dir_permission.sh` - Data directory permissions
+- `ensure_cookie_dir_owner.sh` - Cookie directory ownership
+- `common.sh` - Common shell functions
+- `official_npm_cli_install.sh` - NPM CLI installation
+- `rebuild_lark_cli.sh` - Lark CLI rebuild
+- `browser_features_test.sh` - Browser features testing
+- `runtime_layout_test.sh` - Runtime layout testing
+
+---
+
 ## 📝 Note
 This repository contains all `.md`, `.txt`, and reference documentation files from the installed Agent Skills. Script files (`.py`, `.sh`) and binary files are also included where applicable.
 

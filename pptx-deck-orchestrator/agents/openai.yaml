@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPTX Deck Orchestrator"
+  short_description: "生成和编辑高质量、真实可编辑的PowerPoint演示文稿"
+  default_prompt: "Use $pptx-deck-orchestrator to create a polished, editable PowerPoint presentation from my request and source material and deliver the finished PPTX."

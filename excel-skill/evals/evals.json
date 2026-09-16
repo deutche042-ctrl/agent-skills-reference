@@ -1,0 +1,35 @@
+{
+  "skill_name": "excel-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have an Excel file of sales data (sales_2024.xlsx) with the columns Product Name, Sales, Cost, Region, and Month, about 500 rows. Help me analyze the sales performance of each region, identify the best- and worst-performing regions, and give improvement recommendations.",
+      "expected_output": "Should trigger excel-skill via the data-insights route. First probe to understand the data structure, then do grouped aggregation analysis by the region dimension, and output a sales/profit comparison chart across regions plus business recommendations.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Our department has 5 suppliers. I'll dictate their evaluation data: Supplier A quality pass rate 98%, on-time delivery rate 85%, unit price $32; Supplier B quality pass rate 92%, on-time delivery rate 95%, unit price $28; Supplier C quality pass rate 95%, on-time delivery rate 90%, unit price $30; Supplier D quality pass rate 88%, on-time delivery rate 92%, unit price $25; Supplier E quality pass rate 96%, on-time delivery rate 88%, unit price $35. Help me do a comprehensive evaluation ranking and pick the best supplier.",
+      "expected_output": "Should trigger excel-skill (no-file scenario). First structure the dictated data into Excel, then take the quantitative-modeling / evaluation route (TOPSIS + entropy weight method), and output a comprehensive ranking table, a weight-distribution chart, and a recommendation conclusion.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Help me build an Excel template for a project-progress tracker with these columns: Task Name, Owner, Start Date, Due Date, Completion Status, Notes. It should look professional, have conditional formatting (auto-highlight overdue in red), and include a summary sheet that computes each owner's task completion rate.",
+      "expected_output": "Should trigger excel-skill via the table-creation-and-formatting route. Create the Excel file directly, containing a data-entry sheet and a summary sheet, using openpyxl to set conditional formatting and formulas.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I have an Excel of customer feedback (feedback.xlsx) with a column of customers' text comments, about 200 entries. Help me classify these comments (positive/negative/neutral), extract the key problem points, and count the number and proportion of each type of problem.",
+      "expected_output": "Should trigger excel-skill via the text-semantic-processing route. First probe to view the text column's content, do sentiment classification and keyword extraction for each comment, add a classification column and a keyword column, and output summary statistics in a new sheet.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I have the past 24 months of sales data by city (monthly_sales.csv). Help me predict each city's sales for the next 3 months and identify the fastest-growing and most-declining cities.",
+      "expected_output": "Should trigger excel-skill via the quantitative-modeling / prediction route. Build a time-series model grouped by city, and output each city's predicted values for the next 3 months, a trend chart, and a growth ranking.",
+      "files": []
+    }
+  ]
+}

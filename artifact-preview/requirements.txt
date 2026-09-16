@@ -1,0 +1,68 @@
+# artifact-preview hub — Python + system dependencies
+#
+# ┌─────────────────────────────────────────────────────────────────────┐
+# │  HOW INSTALLATION WORKS                                             │
+# │                                                                     │
+# │  superskill installs hubs via `wget <url>.zip && unzip -d <dir>`.   │
+# │  It does NOT run `pip install`.  These packages must already exist  │
+# │  in the rollout VM image (or be installed manually beforehand).     │
+# │                                                                     │
+# │  Missing Python packages → skill returns {"ok": false,             │
+# │    "error": "DEP_MISSING: …"} instead of crashing.                 │
+# │  Missing system binaries (LibreOffice, Chromium) → feature-level   │
+# │  graceful degradation (PPTX/HTML skip screenshots, return text).   │
+# └─────────────────────────────────────────────────────────────────────┘
+#
+# ── Quick install (development / new VM) ──────────────────────────────
+#   pip install -r requirements.txt
+#   apt-get install -y libreoffice chromium-browser  # PPTX + HTML screenshots
+#
+# ── Versions tested in rollout VM (Python 3.11) ───────────────────────
+#   PyMuPDF==1.27.2.2   Pillow==11.3.0   python-pptx==1.0.2
+#   python-docx==1.2.0  openpyxl==3.1.2
+#   LibreOffice 7.4.7.2 (headless)       Chromium 135 (system chromium-browser)
+# ──────────────────────────────────────────────────────────────────────
+
+# ── Python packages ───────────────────────────────────────────────────
+
+# Core image manipulation: collage, thumbnail, letterbox.
+# Used by: lib/render/collage.py, lib/collage.py, lib/image.py
+Pillow>=9.0,<13.0
+
+# PDF text extraction + per-page PNG screenshots (no external binary needed).
+# Used by: lib/render/pdf.py  (import fitz)
+PyMuPDF>=1.22,<2.0
+
+# PPTX text extraction (slide titles + body text).
+# Screenshots require LibreOffice — see system deps below.
+# Used by: lib/render/pptx.py  (from pptx import Presentation)
+python-pptx>=0.6.21,<2.0
+
+# DOCX text + table dump.
+# Used by: lib/render/docx.py  (import docx)
+python-docx>=0.8.11,<2.0
+
+# XLSX cell dump (all sheets).
+# Used by: lib/render/xlsx.py  (import openpyxl)
+openpyxl>=3.1,<4.0
+
+# HTML screenshots are now driven via the system ``chromium-browser`` CLI
+# (no Playwright dependency). The sandbox image cannot install Playwright's
+# bundled Chromium because ``python -m playwright install`` is blocked by the
+# sandbox security profile. See ``lib/render/html.py`` for the verified flag
+# set used to drive headless Chromium directly.
+
+# ── System / binary dependencies ──────────────────────────────────────
+#
+# LibreOffice (headless)         → PPTX → PDF → PNG rendering pipeline
+#   Ubuntu/Debian:  apt-get install -y libreoffice
+#   Binary checked: libreoffice  OR  soffice  (shutil.which)
+#   Without it:     PPTX collages are skipped; text extraction still works.
+#
+# Chromium (system binary)       → HTML page screenshots
+#   Ubuntu/Debian:  apt-get install -y chromium-browser
+#   Binaries checked: chromium-browser, chromium, google-chrome, chrome
+#   Without any of them: HTML render returns text-only (no screenshots).
+#
+# Python ≥ 3.10 required (match-statement syntax not used, but
+#   dataclasses/type-union syntax from 3.10+ is used in lib/render/types.py)
